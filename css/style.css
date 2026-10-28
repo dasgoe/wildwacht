@@ -1,0 +1,663 @@
+/* ===========================================================
+   Erika Wild — design tokens (v8.7.14 — goudstro; was v8.7.5 kaki)
+   Wild, theatraal, eenvoudig. Licht als basis: kaki als papier
+   of droog gras. Donker olijf enkel voor de blinddoek, labels,
+   knoppen en reactiebanden. Voet in de donkere tekstkleur.
+   Warm getoonde zwart-witfoto's (filter "midden"), toneellicht,
+   bandeau-teksten in cursieve serif in plaats van koude
+   gespatieerde kapitalen.
+   Afgeleid van de foto: de blinddoek wordt "le bandeau" —
+   een lichte band (label, bedekt woord, schuin lopend lint)
+   op een zwart toneel. Korrel = analoge zwart-witfoto.
+   Geen externe lettertypes, geen scripts, geen cookies.
+   =========================================================== */
+
+:root{
+  /* v8.7.13 — goudstro (O4b). Token-namen behouden: --black = het grondvlak (gebroken wit), --light = de stro-vakken */
+  --black:  #F2EFE9;            /* gebroken wit, grondvlak (= Facebook-omslag) */
+  --ink:    #382818;            /* tabak: tekst — 12,3:1 op grond, 10:1 op stro */
+  --ink-soft: #6A5636;          /* secundaire tekst — 6,1:1 op grond */
+  --light:  #EBD7A8;            /* goudstro: lichte vakken */
+  --on-light: #382818;
+  --acc:    #7F4D16;            /* donker oker: knoppen, blinddoek, labels — 6:1 met lichte tekst */
+  --on-acc: #F2EFE9;
+  --band:   #D6AA55;            /* reactiebanden, veiligheidsblok — tabak erop 6,6:1 */
+  --on-band:#382818;
+  --foot:   #C99A4A;            /* voet — tabak erop 5,5:1 */
+  --on-foot:#382818;
+  --header: rgba(242,239,233,.95);
+  --line:   rgba(56,40,24,.2);
+  --line-light: rgba(56,40,24,.2);
+  --glow:   rgba(255,255,255,.35); /* toneellicht */
+
+  --display: Didot, "Bodoni 72", "Bodoni MT", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --step-0: clamp(1rem, .96rem + .2vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.1rem + .7vw, 1.7rem);
+  --step-2: clamp(2rem, 1.4rem + 3vw, 4rem);
+  --step-3: clamp(2.4rem, 1.5rem + 4.4vw, 5.4rem);
+
+  --measure: min(80%, 44rem);
+}
+
+*, *::before, *::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; background:var(--black); }
+body{
+  margin:0; background:var(--black); color:var(--ink);
+  font-family:var(--sans); font-size:var(--step-0); line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+/* filmkorrel over alles */
+body::after{
+  content:""; position:fixed; inset:0; z-index:300; pointer-events:none;
+  opacity:.11; mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{ max-width:100%; height:auto; display:block; }
+main{ overflow-x:clip; }
+a{ color:inherit; }
+
+h1,h2,h3{
+  font-family:var(--display); font-weight:400; font-style:italic;
+  line-height:1.02; letter-spacing:-.02em;
+  margin:0 0 .5em; text-wrap:balance;
+}
+h1{ font-size:var(--step-3); }
+h2{ font-size:var(--step-2); }
+h3{ font-size:var(--step-1); }
+p{ margin:0 0 1em; }
+
+.wrap{ width:var(--measure); margin-inline:auto; }
+@media (max-width:400px){ .wrap{ width:calc(100% - 2rem); } }
+
+section{ padding-block:clamp(4rem, 9vw, 8rem); }
+.section-black{ background:var(--black); color:var(--ink); }
+/* licht vak = het "poppen": compact, nooit 2 na elkaar */
+.section-light{ background:var(--light); color:var(--on-light); padding-block:clamp(3rem, 6vw, 5rem); }
+
+/* ---------- toegankelijkheid ---------- */
+.skip-link{ position:absolute; left:-999px; background:var(--ink); color:var(--black); padding:.75rem 1rem; z-index:1000; }
+.skip-link:focus{ left:1rem; top:1rem; outline:3px solid var(--ink); outline-offset:3px; }
+video:focus-within{ outline:3px solid var(--ink); outline-offset:3px; }
+.section-light video:focus-within{ outline-color:var(--on-light); }
+.legal a{ display:inline-flex; align-items:center; min-height:44px; }
+:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
+.section-light :focus-visible{ outline-color:var(--on-light); }
+.nowrap{ white-space:nowrap; }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+/* ---------- header ---------- */
+.site-header{ position:sticky; top:0; z-index:100; background:var(--header); border-bottom:1px solid var(--line); }
+.nav{
+  width:min(100% - 2rem, 80rem); margin-inline:auto;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding-block:.45rem;
+}
+.brand{ display:flex; align-items:center; text-decoration:none; min-height:44px; }
+/* merknaam: gewoon in kapitalen, geen logo */
+.brand-name{ font-family:var(--sans); font-size:.95rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; white-space:nowrap; }
+.nav-links{ display:flex; align-items:center; gap:.15rem; list-style:none; margin:0; padding:0; }
+.nav-links a{
+  display:flex; align-items:center; justify-content:center;
+  min-height:44px; min-width:44px; padding:.5rem .8rem;
+  text-decoration:none; font-size:.78rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+}
+.nav-links a:hover{ background:rgba(56,40,24,.08); }
+.nav-links a[aria-current="page"]{ background:var(--ink); color:var(--black); }
+.nav-links .nav-book a{ box-shadow:inset 0 0 0 1px var(--ink); }
+.nav-links .sep{ width:1px; height:1.2rem; background:var(--line); margin-inline:.35rem; }
+@media (max-width:520px){
+  .brand-name{ font-size:.82rem; letter-spacing:.18em; }
+  .nav{ gap:.5rem; }
+  .nav-links a{ padding:.5rem .5rem; letter-spacing:.12em; }
+  .nav-links .nav-book a{ letter-spacing:.06em; padding-inline:.6rem; }
+  /* op gsm enkel de andere taal tonen */
+  .nav-links .sep, .nav-links li:has(> a[aria-current="page"]){ display:none; }
+}
+@media (max-width:700px){ .nav-links .hide-sm{ display:none; } }
+.nav-links a{ white-space:nowrap; }
+
+/* ---------- le bandeau ---------- */
+.band-label{
+  display:inline-block;
+  background:var(--ink); color:var(--black);
+  font-family:var(--display); font-style:italic; font-size:1.05rem; letter-spacing:.01em;
+  padding:.35rem 1rem .4rem; margin-bottom:1.75rem;
+  transform:rotate(-2deg);
+}
+.section-light .band-label{ background:var(--on-light); color:var(--light); }
+.veil{
+  background:var(--ink); color:var(--black);
+  font-style:normal; padding:0 .2em;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  white-space:nowrap;
+}
+.band-rule{ border:0; color:inherit; height:14px; background:currentColor; width:min(10rem, 45%); margin:0 0 2rem; transform:rotate(-2deg); }
+
+/* schuin lint, als een blinddoek over de pagina */
+.ribbon{
+  background:var(--ink); color:var(--black);
+  transform:rotate(-2.5deg) scale(1.05);
+  margin-block:-1.5rem 3rem; position:relative; z-index:2;
+  overflow:hidden; white-space:nowrap;
+  padding-block:.7rem;
+  font-family:var(--display); font-style:italic;
+  font-size:clamp(1.2rem, 1rem + .8vw, 1.7rem); letter-spacing:.01em;
+}
+.ribbon-track{ display:inline-flex; animation:ribbon 100s linear infinite; }
+.ribbon-track span{ padding-right:.5em; }
+@keyframes ribbon{ to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce){ .ribbon-track{ animation:none; } }
+
+/* ---------- hero ---------- */
+.hero{ padding:0; position:relative; overflow:hidden; }
+/* toneellicht: een zachte spot achter de titel */
+.hero::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 55% at 72% 50%, var(--glow), transparent 70%);
+}
+@media (max-width:859px){ .hero::before{ background:radial-gradient(ellipse 90% 45% at 50% 72%, var(--glow), transparent 70%); } }
+.hero-grid{ display:grid; }
+/* schuine, onzichtbare snede: foto en zwart vak sluiten naadloos aan,
+   de titel staat altijd volledig in het donker */
+.hero-media{ position:relative; --cut:3.25rem; }
+.hero-photo{
+  width:100%; height:44vh; min-height:300px;
+  object-fit:cover; object-position:50% 82%;   /* gsm: gezicht en schouders, minder haar */
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--cut)), 0 100%);
+}
+.hero-text{
+  position:relative; z-index:1;
+  width:calc(100% - 2rem); margin:-1.6rem auto 0;
+  padding-bottom:3rem;
+}
+.hero-text .lede{ font-size:var(--step-1); color:var(--ink-soft); max-width:30ch; line-height:1.45; }
+@media (min-width:860px){
+  .hero-grid{ grid-template-columns: 1fr 1fr; min-height:calc(100vh - 57px); align-items:center; }
+  .hero-media{ --cut:7vw; align-self:stretch; }
+  .hero-photo{
+    height:calc(100vh - 57px); min-height:560px; object-position:50% 40%;
+    clip-path:polygon(0 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+  }
+  .hero-text{ margin:0; width:auto; padding:3rem 6vw 3rem 2vw; }
+}
+/* tablet: hogere foto, hoofd en blinddoek volledig in beeld (v8.7.14) */
+@media (min-width:521px) and (max-width:859px){ .hero-photo{ height:62vh; min-height:420px; max-height:78vw; object-position:50% 36%; } }
+@media (max-width:859px){
+  .hero h1{ font-size:clamp(2.1rem, 1.4rem + 4vw, 3rem); }
+  .hero-text .lede{ font-size:1.1rem; }
+  .hero .btn-row{ margin-top:1.25rem; }
+}
+
+/* ---------- knoppen ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:48px; padding:.9rem 2rem;
+  font-family:var(--sans); font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; border:2px solid transparent; border-radius:0; cursor:pointer;
+  transition:background-color .15s, color .15s;
+}
+.btn-primary{ background:var(--ink); color:var(--black); border-color:var(--ink); }
+.btn-primary:hover{ background:transparent; color:var(--ink); }
+.section-light .btn-primary{ background:var(--on-light); color:var(--light); border-color:var(--on-light); }
+.section-light .btn-primary:hover{ background:transparent; color:var(--on-light); }
+.btn-row{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:2rem; }
+
+/* ---------- tekst ---------- */
+.big-line{ font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1.35; }
+.quote{
+  font-family:var(--display); font-style:italic;
+  font-size:var(--step-2); line-height:1.05; margin:2.5rem 0 0;
+}
+
+.checks{ list-style:none; margin:1.5rem 0 0; padding:0; }
+.checks li{ position:relative; padding:.8rem 0 .8rem 2.2rem; border-top:1px solid var(--line); }
+.checks li::before{ content:""; position:absolute; left:0; top:1.35rem; width:1.3rem; height:6px; background:currentColor; transform:rotate(-8deg); }
+.section-light .checks li{ border-color:var(--line-light); }
+
+/* beelden verspreid over de pagina */
+/* 1. film naast de tekst */
+.wrap--wide{ width:min(100% - 2rem, 60rem); }
+.split{ display:grid; gap:2rem; }
+@media (min-width:860px){
+  .split{ grid-template-columns:1fr 17rem; gap:4rem; align-items:start; }
+}
+/* 2. beelden onder de activiteiten: samen één vierkant, zonder kaders.
+   3 foto's: 1 groot links, 2 gestapeld rechts. 4 foto's: .act-grid--4 = 2×2 */
+.act-grid{
+  display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+  gap:.6rem; aspect-ratio:1; margin-top:2.5rem; max-width:44rem;
+}
+.act-grid figure{ margin:0; overflow:hidden; min-height:0; }
+.act-grid img{ display:block; width:100%; height:100%; object-fit:cover; }
+.act-big{ grid-row:1 / 3; }
+.act-grid--4 .act-big{ grid-row:auto; }
+
+/* 3. brede foto als pauze, schuin aangesneden zoals de hero */
+.band-photo{ margin:0; overflow:hidden; }
+.band-photo img{
+  display:block; width:100%; height:clamp(200px, 38vw, 460px); object-fit:cover; object-position:50% 60%;
+  clip-path:polygon(0 2.5rem, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+}
+
+/* wie ik ben: zoals de hero, gespiegeld. Tekst links, foto rechts tot aan de rand */
+.me{ padding:0; display:grid; overflow:hidden; }
+.me-text{ width:var(--measure); margin:0 auto; padding-block:clamp(3rem, 7vw, 5rem); }
+.me-photo{ display:block; width:100%; height:100vw; max-height:620px; object-fit:cover; object-position:40% 0%;
+  clip-path:polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%); order:-1; }
+@media (min-width:860px){
+  .me{ grid-template-columns:1fr 1fr; align-items:center; min-height:min(90vh, 720px); }
+  .me-text{ width:auto; margin:0; padding:4rem 4vw 4rem max(1rem, calc(50vw - 30rem)); }
+  .me-photo{ order:0; align-self:stretch; height:100%; max-height:none; min-height:560px; clip-path:polygon(7vw 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+/* stemmen van deelnemers */
+.voices{ display:grid; gap:1.75rem; margin-top:1.5rem; }
+@media (min-width:760px){ .voices{ grid-template-columns:1fr 1fr; gap:2rem 3rem; } }
+.voice{ margin:0; }
+.voice blockquote{ margin:0; font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1.3; }
+.voice blockquote p{ margin:0; }
+.voice figcaption{ margin-top:.5rem; font-size:.8rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
+.voice figcaption::before{ content:"— "; }
+.voices-cap{ margin:2rem 0 0; font-size:.85rem; color:var(--ink-soft); }
+/* groepsfoto als los lint tussen twee secties, met zwarte ruimte erboven */
+.band-photo--gap{ margin-top:clamp(2.5rem, 6vw, 4.5rem); }
+
+/* praktisch */
+.prat{ margin:1.5rem 0 2rem; display:grid; gap:1rem; }
+@media (min-width:760px){ .prat{ grid-template-columns:repeat(3, 1fr); gap:2rem; } }
+.prat dt{ font-size:.75rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; margin-bottom:.2rem; }
+.prat dd{ margin:0; font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1.25; }
+
+/* vragen */
+.faq{ margin-top:1.5rem; border-top:1px solid var(--line); }
+.faq details{ border-bottom:1px solid var(--line); }
+.faq summary{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  min-height:56px; padding:.8rem 0; cursor:pointer; list-style:none;
+  font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1.2;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{ content:"+"; font-size:1.6rem; line-height:1; }
+.faq details[open] summary::after{ content:"–"; }
+.faq details p{ margin:0 0 1.25rem; color:var(--ink-soft); max-width:60ch; }
+
+.split .quote{ font-size:var(--step-1); margin:1.5rem 0 0; }
+#formules .offer-meta{ max-width:46ch; opacity:1; }
+
+/* lichte vakken: alles donker, nooit lichte tekst op licht */
+.section-light .checks li{ border-color:var(--line-light); }
+
+/* experiment 01: één activiteit + wat nog komt */
+.walk{ margin:2.5rem 0 0; padding:1.5rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.walk h3{ font-size:var(--step-1); margin:0 0 .4rem; }
+.walk p{ margin:0; color:var(--ink-soft); }
+.next{ margin:1.5rem 0 0; font-family:var(--display); font-style:italic; font-size:var(--step-1); color:var(--ink-soft); }
+/* tweede knop op licht */
+.btn-ghost{ background:transparent; color:var(--on-light); border-color:var(--on-light); }
+.btn-ghost:hover{ background:var(--on-light); color:var(--light); }
+/* feitenzin voor zoekmachines, discreet in de footer */
+.footer-fact{ flex-basis:100%; margin:0; font-size:.78rem; max-width:70ch; }
+
+
+/* veiligheid: uitgelicht, geen lijstpunt */
+.safe{ margin:2rem 0 0; padding:1.1rem 1.25rem; background:var(--on-light); color:var(--light); font-weight:600; max-width:40rem; transform:rotate(-1deg); }
+/* wat nog komt: titel boven de teaserfoto's */
+.next{ margin:3rem 0 0; }
+.next + .act-grid{ margin-top:1rem; }
+/* groepsfoto als rechte band onderaan het boekvak: schuin bovenaan, links hoger */
+
+.band-bottom{ margin:clamp(3rem, 7vw, 5rem) 0 0; }
+.band-bottom img{ display:block; width:100%; height:clamp(220px, 40vw, 560px); object-fit:cover; object-position:50% 30%;
+  clip-path:polygon(0 0, 100% 3rem, 100% 100%, 0 100%); }
+
+/* conversie: noot onder de heroknop */
+.hero-note{ margin:.75rem 0 0; font-size:.85rem; color:var(--ink-soft); }
+/* hoe het gaat: foto links, tekst rechts */
+.how{ display:grid; gap:1.5rem; margin-top:1.5rem; }
+@media (min-width:860px){
+  .how{ grid-template-columns:16rem 1fr; gap:4rem; align-items:start; }
+}
+/* formules: per formule een eigen knop */
+.offers li{ align-items:center; gap:.75rem 1.5rem; }
+.offer-text{ flex:1 1 20rem; }
+.offer-act{ display:flex; align-items:center; gap:1rem; }
+.btn-sm{ min-height:44px; padding:.6rem 1.2rem; font-size:.78rem; }
+.intake{ display:flex; flex-wrap:wrap; align-items:center; gap:.75rem 1.5rem; margin-top:2rem; padding:1rem 0; }
+.intake p{ margin:0; flex:1 1 20rem; }
+/* subpagina's */
+.page h1{ font-size:var(--step-2); }
+.page h2{ font-size:var(--step-1); margin-top:2.5rem; }
+.page h3{ font-family:var(--sans); font-style:normal; font-weight:700; font-size:1rem; margin:1.5rem 0 .3rem; }
+.page a{ text-underline-offset:3px; }
+.offers--dark li{ border-color:var(--line); }
+.steps{ padding-left:1.25rem; }
+.steps li{ margin-bottom:.6rem; }
+.plain{ padding-left:1.1rem; }
+.plain li{ margin-bottom:.5rem; }
+.small{ font-size:.85rem; color:var(--ink-soft); margin-top:2rem; }
+.legal{ display:grid; gap:.6rem; margin:1rem 0 0; }
+.legal div{ display:grid; grid-template-columns:minmax(9rem, 14rem) 1fr; gap:1rem; border-top:1px solid var(--line); padding-top:.6rem; }
+.legal dt{ color:var(--ink-soft); font-size:.85rem; }
+.legal dd{ margin:0; }
+.todo{ background:var(--ink); color:var(--black); padding:0 .3em; }
+@media (max-width:520px){ .legal div{ grid-template-columns:1fr; gap:.1rem; } }
+
+/* schuine foto's naast tekst */
+.tilt-photo{ margin:0 auto; width:min(64%, 17rem); aspect-ratio:3/4; overflow:hidden; }
+.tilt-photo img{ display:block; width:100%; height:100%; object-fit:cover; }
+.tilt-right{ transform:rotate(2.5deg); }
+@media (min-width:860px){
+  .tilt-photo{ width:100%; }
+  .split .tilt-photo{ margin-top:3rem; }
+}
+.next-p{ margin:.25rem 0 0; color:var(--ink-soft); max-width:46ch; }
+.act-grid video{ display:block; width:100%; height:100%; object-fit:cover; }
+.me-cred{ font-size:.85rem; letter-spacing:.02em; margin-top:1.5rem; }
+.offer-meta a{ color:inherit; text-underline-offset:3px; }
+
+/* experiment 01: zoals 'ik ben Erika', maar foto links */
+@media (min-width:860px){
+  .me--left .me-text{ padding:4rem max(1rem, calc(50vw - 30rem)) 4rem 4vw; }
+  .me--left .me-photo{ order:-1; clip-path:polygon(0 0, 100% 0, calc(100% - 7vw) 100%, 0 100%); object-position:50% 20%; }
+}
+.me--left .me-photo{ object-position:50% 20%; }
+.me .walk{ margin-top:2rem; }
+/* praktisch onder elkaar */
+.prat--stack{ grid-template-columns:1fr; margin:0; gap:1rem; }
+.how .checks{ margin:0; }
+/* kleuren per achtergrond */
+.section-black .safe{ background:var(--ink); color:var(--black); }
+.section-light .next, .section-light .next-p,
+.section-light .voice figcaption, .section-light .voices-cap{ color:var(--on-light); }
+.section-light .next{ font-size:var(--step-2); margin-top:0; }
+/* cadeaubon: foto */
+.gift-body{ padding-top:clamp(2rem, 5vw, 3.5rem); padding-bottom:0; border-top:1px solid var(--line); }
+.gift-body .offers{ margin-top:0; }
+.section-light .offers--dark li{ border-color:var(--line-light); }
+.section-light.page .small{ color:var(--on-light); }
+.section-light.page .btn-primary{ background:var(--on-light); color:var(--light); border-color:var(--on-light); }
+.gift-body{ border-top:0; }
+.me h1{ font-size:var(--step-2); }
+
+/* reacties: één tegelijk, gecentreerd, swipen voor de volgende (geen JavaScript) */
+.voices--scroll{
+  display:flex; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  margin-top:1.5rem; padding:0; scrollbar-width:none;
+}
+.voices--scroll::-webkit-scrollbar{ display:none; }
+.voices--scroll .voice{ flex:0 0 100%; scroll-snap-align:center; text-align:center; padding:0 1rem; }
+.voices--scroll .voice blockquote{ max-width:34rem; margin:0 auto; font-size:var(--step-1); }
+.voice-dots{ display:flex; justify-content:center; gap:.25rem; margin-top:1rem; }
+.voice-dots a{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; }
+.voice-dots a::before{ content:""; width:10px; height:10px; border-radius:50%; border:1.5px solid currentColor; }
+.voice-dots a:hover::before{ background:currentColor; }
+.voices-cap{ text-align:center; }
+#praktisch h2, #pratique h2{ margin-bottom:.25rem; }
+/* groepsfoto tussen twee lichte vlakken */
+/* groepsfoto schuift met de schuine rand over het vlak erboven: geen spleet */
+.band-photo--light{ position:relative; margin-top:-2.5rem; background:linear-gradient(transparent 2.5rem, var(--light) 2.5rem); }
+@media (prefers-reduced-motion:reduce){ .voices--scroll{ scroll-behavior:auto; } }
+
+/* wat nog komt: na het prijsblok */
+.next-section .next{ font-size:var(--step-2); margin-top:0; }
+
+/* kleuren per achtergrond (na herschikking) */
+.section-black .offers li{ border-color:var(--line); }
+.section-black .btn-ghost{ color:var(--ink); border-color:var(--ink); }
+.section-black .btn-ghost:hover{ background:var(--ink); color:var(--black); }
+.section-light .faq, .section-light .faq details{ border-color:var(--line-light); }
+.section-light .faq details p{ color:var(--on-light); }
+.section-black .band-bottom{ margin-top:clamp(3rem, 7vw, 5rem); }
+
+/* formules + prijs */
+.offers{ list-style:none; margin:2rem 0 0; padding:0; }
+.offers li{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.25rem 1rem; padding:1rem 0; border-top:1px solid var(--line-light); }
+.offers li:last-child{ border-bottom:1px solid var(--line-light); }
+.offer-name{ font-weight:700; }
+.offer-meta{ display:block; font-size:.9rem; opacity:.8; }
+.note{ margin:1.25rem 0 0; font-size:.9rem; }
+.note a{ text-underline-offset:3px; }
+.offer-price{ font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1; white-space:nowrap; }
+
+/* ---------- footer ---------- */
+.site-footer{ border-top:1px solid var(--line); padding-block:2.5rem; font-size:.85rem; color:var(--ink-soft); }
+.footer-inner{ width:min(100% - 2rem, 80rem); margin-inline:auto; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between; }
+.footer-brand{ display:flex; align-items:center; gap:.7rem; }
+.footer-brand strong{ font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.footer-links{ display:flex; flex-wrap:wrap; gap:.25rem 1.2rem; list-style:none; margin:0; padding:0; }
+.footer-links a{ display:inline-flex; align-items:center; min-height:44px; text-decoration:underline; text-underline-offset:3px; }
+
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+
+.section-light .walk{ border-color:var(--line-light); }
+.section-light .walk p{ color:var(--on-light); }
+
+/* gsm: foto bovenaan een vlak schuift onder het vorige vlak door, de schuine hoek toont dat vlak */
+@media (max-width:859px){
+  main > * + .me{ position:relative; margin-top:-2.5rem; background-color:transparent; }
+  main > * + .me.section-black{ background-image:linear-gradient(transparent 2.5rem, var(--black) 2.5rem); }
+  main > * + .me.section-light{ background-image:linear-gradient(transparent 2.5rem, var(--light) 2.5rem); }
+}
+
+/* groepsfoto boven 'Boek je sessie': boven schuin aflopend naar rechts, onder recht */
+.band-photo--light img{ clip-path:polygon(0 0, 100% 2.5rem, 100% 100%, 0 100%); }
+
+/* losse reactie bij het onderdeel waar ze twijfel wegneemt */
+.voice--inline{ margin:2.25rem 0 0; max-width:34rem; }
+.section-black .next{ color:var(--ink); }
+.voice--inline blockquote, .band-cap blockquote{ margin:0; font-family:var(--display); font-style:italic; font-size:1.15rem; line-height:1.5; }
+.voice--inline blockquote p, .band-cap blockquote p{ margin:0; }
+/* sterkste zin van een reactie in de blinddoek-band */
+.mark{ background:var(--ink); color:var(--black); padding:0 .25em; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+.section-light .mark, .band-cap .mark{ background:var(--on-light); color:var(--light); }
+/* reactie als onderschrift bij de groepsfoto */
+.band-cap{ width:var(--measure); margin:0 auto; padding-top:1.25rem; color:var(--on-light); }
+.band-cap .who{ display:block; margin-top:.5rem; font-size:.8rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.band-cap .who::before{ content:"— "; }
+.walk p + p{ margin-top:.75rem; }
+
+/* reactie als lichte band: schuine bovenrand over het zwarte vlak erboven, onderaan vloeit ze over in het lichte vlak eronder */
+.quote-band{ position:relative; margin-top:-2.5rem; background:var(--light); color:var(--on-light);
+  clip-path:polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%); padding:calc(2.5rem + clamp(2rem, 5vw, 3rem)) 0 0; }
+.quote-band-strip{ margin:0 auto; width:var(--measure); }
+.quote-band-strip blockquote{ margin:0; font-family:var(--display); font-style:italic; font-size:var(--step-1); line-height:1.4; }
+.quote-band-strip blockquote p{ margin:0; }
+.quote-band-strip .mark{ background:var(--on-light); color:var(--light); }
+.quote-band-strip figcaption{ display:block; margin-top:.6rem; font-size:.8rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.quote-band-strip figcaption::before{ content:"— "; }
+@media (min-width:860px){ .quote-band-strip{ width:min(100% - 2rem, 44rem); } }
+/* het lichte vlak na een reactieband sluit naadloos aan */
+.quote-band + .section-light{ padding-top:clamp(2rem, 5vw, 3rem); }
+main > .quote-band + .me.section-light{ margin-top:0; background-image:none; background-color:var(--light); }
+@media (max-width:859px){ main > .quote-band + .me.section-light{ padding-top:2rem; } }
+.quote-band{ margin-bottom:-1px; }
+
+/* reactieband tussen twee zwarte vlakken: schuin boven en onder */
+.quote-band--both{ z-index:1; clip-path:polygon(0 2.5rem, 100% 0, 100% calc(100% - 2.5rem), 0 100%); margin-bottom:-2.5rem; padding-bottom:calc(2.5rem + clamp(2rem, 5vw, 3rem)); }
+.quote-band--both + .section-black{ padding-top:calc(2.5rem + clamp(3rem, 6vw, 5rem)); }
+
+/* links in lopende tekst en in het praktische blok */
+.hero-note a, .prat dd a, .faq details p a, .split p a{ color:inherit; text-underline-offset:3px; }
+.hero-note a{ display:inline-flex; align-items:center; min-height:44px; }
+
+/* v8.7.3 — boekblok: koppel in kader met bandeau-label, groep met activiteitenlijst */
+.offers li.offer-framed{ position:relative; border:1px solid var(--on-light); padding:1.6rem 1rem 1rem; margin:1.75rem 0 .5rem; }
+.offers li.offer-framed + li{ border-top:0; }
+.offer-tag{ position:absolute; top:0; left:50%; transform:translate(-50%,-55%) rotate(-2deg); background:var(--on-light); color:var(--light); font-family:var(--display); font-style:italic; font-size:.9rem; padding:.2rem .8rem; white-space:nowrap; }
+.offers li.offer-group{ flex-direction:column; align-items:stretch; }
+.offer-group-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.75rem 1rem; }
+.acts{ list-style:none; margin:.4rem 0 0; padding:0; }
+.offers .acts li{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; column-gap:.75rem; border:0; padding:0; }
+.offers .acts li:last-child{ border-bottom:0; }
+.act-title{ display:inline-flex; align-items:center; min-height:44px; font-weight:600; color:inherit; text-decoration:underline; text-underline-offset:4px; }
+.act-meta{ font-size:.88rem; white-space:nowrap; }
+.act-meta strong{ font-weight:600; }
+@media (prefers-reduced-motion: reduce){ .offer-tag{ transform:translate(-50%,-55%); } }
+
+/* ===========================================================
+   v8.7.5 — kaki: de accentkleur op de bandeau-elementen
+   =========================================================== */
+.nav-links a[aria-current="page"]{ background:var(--acc); color:var(--on-acc); }
+.nav-links .nav-book a{ box-shadow:inset 0 0 0 1px var(--acc); color:var(--acc); }
+.veil, .band-label, .section-light .band-label, .ribbon, .safe, .section-black .safe, .offer-tag{ background:var(--acc); color:var(--on-acc); }
+.offers li.offer-framed{ border-color:var(--acc); }
+.btn-primary, .section-light .btn-primary, .section-light.page .btn-primary{ background:var(--acc); color:var(--on-acc); border-color:var(--acc); }
+.btn-primary:hover, .section-light .btn-primary:hover, .section-light.page .btn-primary:hover{ background:transparent; color:var(--acc); }
+.btn-ghost, .section-black .btn-ghost{ color:var(--acc); border-color:var(--acc); }
+.btn-ghost:hover, .section-black .btn-ghost:hover{ background:var(--acc); color:var(--on-acc); }
+.band-rule{ color:var(--acc); }
+.quote-band{ background:var(--acc); color:var(--on-acc); }
+.mark, .section-light .mark, .band-cap .mark{ background:var(--acc); color:var(--on-acc); }
+.quote-band-strip .mark{ background:var(--on-acc); color:var(--acc); }
+.skip-link{ background:var(--ink); color:var(--black); }
+.quote-band :focus-visible{ outline-color:var(--on-acc); }
+/* voet in de donkere tekstkleur: sluit de lichte pagina af */
+.site-footer{ background:var(--foot); color:var(--on-foot); border-top:0; --ink-soft:var(--on-foot); }
+.site-footer .footer-brand strong, .site-footer a{ color:var(--on-foot); }
+.site-footer :focus-visible{ outline-color:var(--on-foot); }
+/* korrel op licht: vermenigvuldigen in plaats van zacht licht */
+body::after{ mix-blend-mode:multiply; opacity:.06; }
+/* gsm: de donkere titel staat onder de foto, niet over de donkere fotorand */
+@media (max-width:859px){ .hero-text{ margin-top:.75rem; } }
+
+/* ===========================================================
+   v8.7.7 — kaki: rust en onderscheid
+   1. Olijf enkel voor wat je aanklikt (knoppen) en de blinddoek
+      (bedekt woord, labels). Grote donkere vlakken (reactiebanden,
+      veiligheidsblok, streep) in de donkere tekstkleur, zoals de voet.
+   2. Reactieband sluit zelf af met een schuine onderrand; het vlak
+      eronder schuift eronder door, zonder kaki spleet.
+   3. Boekblok op gsm: elke formule dezelfde opbouw (naam, uitleg,
+      prijs links en knop rechts), groepsdata als rustige lijst.
+   =========================================================== */
+.quote-band, .safe, .section-black .safe{ background:var(--band); color:var(--on-band); }
+.quote-band-strip .mark{ background:var(--acc); color:var(--on-acc); }
+.band-rule{ color:var(--acc); }
+.offers li.offer-framed{ border-color:var(--ink); }
+.quote-band :focus-visible{ outline-color:var(--on-band); }
+
+.quote-band:not(.quote-band--both){
+  position:relative; z-index:2;
+  clip-path:polygon(0 2.5rem, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+  padding-bottom:calc(2.5rem + clamp(2rem, 5vw, 3rem));
+  margin-bottom:-2.5rem;
+}
+main > .quote-band:not(.quote-band--both) + *{ position:relative; z-index:1; }
+main > .quote-band:not(.quote-band--both) + .section-light,
+main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:calc(2.5rem + clamp(2rem, 5vw, 3rem)); background-image:none; }
+@media (max-width:859px){
+  /* foto bovenaan: die schuift onder de band, de schuine randen lopen gelijk */
+  main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:0; }
+  main > .quote-band:not(.quote-band--both) + .me .me-photo{ clip-path:none; }
+}
+
+@media (max-width:700px){
+  .offers li{ flex-direction:column; align-items:stretch; gap:.6rem; }
+  .offers li .offer-text{ flex:none; }
+  .offer-act{ justify-content:space-between; width:100%; }
+  .offers li.offer-framed{ padding:1.6rem 1rem 1.1rem; }
+  .offers li.offer-group{ display:flex; }
+  .offer-group-head{ display:contents; }
+  .offer-group .offer-text{ order:1; }
+  .offer-group .acts{ order:2; margin:0; }
+  .offer-group .btn{ order:3; align-self:flex-end; }
+  .offers .acts li{ display:block; padding:.55rem 0; border-top:1px solid var(--line-light); }
+  .offers .acts li:last-child{ border-bottom:1px solid var(--line-light); }
+  .act-title{ display:inline-flex; min-height:44px; align-items:center; font-weight:600; }
+  .offers .acts li{ padding:.25rem 0 .5rem; }
+  .act-meta{ margin-top:0; }
+  .act-meta{ display:block; margin-top:.15rem; white-space:normal; }
+  #formules .note{ margin-top:2rem; line-height:1.9; }
+}
+/* kleinste gsm's (320 px): kopbalk past op één regel */
+@media (max-width:359px){
+  .brand-name{ font-size:.74rem; letter-spacing:.14em; }
+  .nav{ gap:.35rem; }
+  .nav-links a{ padding-inline:.4rem; letter-spacing:.08em; }
+  .nav-links .nav-book a{ letter-spacing:.03em; padding-inline:.45rem; font-size:.72rem; }
+}
+
+/* ---------- agenda (v8.7.11): maandrooster + lijst ---------- */
+.cal-intro{ padding-block:clamp(3rem, 7vw, 6rem) clamp(2rem, 4vw, 3rem); }
+.cal-intro .big-line{ max-width:34rem; }
+.wrap--wide{ width:min(100% - 2rem, 68rem); }
+.cal-month{ padding-block:0; }
+.cal-month + .cal-month{ margin-top:clamp(3rem, 6vw, 4.5rem); }
+.cal-mh{
+  display:inline-flex; align-items:baseline; gap:.6rem; margin:0 0 1.2rem;
+  padding:.45rem 1.8rem .45rem .9rem; background:var(--acc); color:var(--on-acc);
+  font-size:var(--step-1); clip-path:polygon(0 0, 100% 0, calc(100% - 1rem) 100%, 0 100%);
+}
+.page h2.cal-mh{ margin-top:0; }
+.cal-mh span{ font:700 .72rem/1 var(--sans); letter-spacing:.24em; font-style:normal; }
+.cal-grid ul{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:4px; }
+.cal-wd{ margin-bottom:4px !important; }
+.cal-wd li{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; text-align:center; color:var(--ink-soft); }
+.cal-d{ position:relative; aspect-ratio:1; background:var(--black); }
+.cal-d--pad{ background:transparent; }
+.cal-n{ position:absolute; top:4px; left:6px; font:400 .95rem/1 var(--display); color:var(--ink-soft); }
+.cal-d--ev{ background:var(--acc); transform:rotate(-1.5deg); }
+.cal-d--ev a{ position:absolute; inset:0; color:var(--on-acc); text-decoration:none; }
+.cal-d--ev .cal-n{ color:var(--on-acc); font-style:italic; font-weight:700; font-size:1.1rem; }
+.cal-t, .cal-h{ display:none; }
+
+.cal-list{ list-style:none; margin:1.4rem 0 0; padding:0; border-top:1px solid var(--ink); }
+.cal-list li{ border-bottom:1px solid var(--line-light); }
+.cal-ev{
+  display:grid; grid-template-columns:3.2rem minmax(0,1fr) auto; grid-template-areas:"d b p" "d b go";
+  column-gap:.9rem; align-items:center; padding:.8rem 0; min-height:64px; text-decoration:none;
+}
+.cal-ev-d{ grid-area:d; display:flex; flex-direction:column; align-items:center; line-height:1; }
+.cal-ev-wd{ font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
+.cal-ev-n{ font:italic 400 2rem/1 var(--display); margin-top:.15rem; }
+.cal-ev-b{ grid-area:b; display:flex; flex-direction:column; }
+.cal-ev-t{ font:italic 400 1.2rem/1.2 var(--display); }
+.cal-ev-m{ font-size:.85rem; line-height:1.4; color:var(--ink-soft); margin-top:.2rem; }
+.cal-ev-p{ grid-area:p; font-weight:700; text-align:right; white-space:nowrap; }
+.cal-ev-go{ grid-area:go; justify-self:end; font-size:.66rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid currentColor; }
+.cal-ev:hover .cal-ev-t, .cal-ev:focus-visible .cal-ev-t{ text-decoration:underline; text-underline-offset:3px; }
+.cal-note{ margin-top:clamp(3rem, 6vw, 4rem); padding-top:1.2rem; border-top:1px solid var(--line-light); line-height:1.9; }
+
+@media (min-width:760px){
+  .cal-month{ display:grid; grid-template-columns:1.35fr 1fr; column-gap:3rem; align-items:start; }
+  .cal-mh{ grid-column:1 / -1; justify-self:start; }
+  .cal-list{ margin-top:0; }
+  .cal-d{ aspect-ratio:auto; min-height:84px; }
+  .cal-t, .cal-h{ display:block; position:absolute; left:6px; right:6px; }
+  .cal-t{ bottom:22px; font:italic 400 .95rem/1.1 var(--display); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cal-h{ bottom:6px; font-size:.7rem; letter-spacing:.08em; }
+}
+.cal-ev--free{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"b p" "b go"; }
+@media (min-width:760px){
+  .cal-month--free .cal-list{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; column-gap:3rem; border-top:0; }
+  .cal-month--free .cal-list li{ border-top:1px solid var(--ink); }
+}
+.cal-month--free .cal-list{ margin-top:0; }
+
+/* ---------- cadeaubon (v8.7.12): formules met bestelknop, groep met ondertitels ---------- */
+.gift-go{
+  display:inline-flex; align-items:center; min-height:44px;
+  font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  text-decoration:underline; text-underline-offset:5px; text-decoration-thickness:1px; white-space:nowrap;
+}
+.gift-list .offer-act{ gap:1.25rem; }
+.offers li.gift-group{ flex-direction:column; align-items:stretch; }
+.gift-acts{ list-style:none; margin:.5rem 0 0; padding:0 0 0 1rem; border-left:2px solid var(--acc); }
+.offers .gift-acts li{
+  display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; column-gap:1.25rem;
+  padding:.35rem 0; border:0;
+}
+.offers .gift-acts li + li{ border-top:1px solid var(--line-light); }
+.offers .gift-acts li:last-child{ border-bottom:0; }
+.gift-act{ display:flex; flex-direction:column; }
+.gift-act-name{ font-weight:600; }
+.gift-act-meta{ font-size:.85rem; opacity:.8; }
+.gift-acts .offer-price{ font-size:1.25rem; }
+@media (max-width:640px){
+  .offers .gift-acts li{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"a p" "a g"; row-gap:0; }
+  .gift-act{ grid-area:a; } .gift-acts .offer-price{ grid-area:p; justify-self:end; } .gift-acts .gift-go{ grid-area:g; justify-self:end; }
+}
+.offers li.gift-group .offer-text{ flex:none; }
+@media (max-width:640px){ .gift-acts .offer-price{ align-self:end; } .gift-acts .gift-go{ align-self:start; } }

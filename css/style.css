@@ -1,5 +1,5 @@
 /* ===========================================================
-   Erika Wild — design tokens (v8.7.14 — goudstro; was v8.7.5 kaki)
+   Erika Wild — design tokens (v8.7.15 — goudstro; was v8.7.5 kaki)
    Wild, theatraal, eenvoudig. Licht als basis: kaki als papier
    of droog gras. Donker olijf enkel voor de blinddoek, labels,
    knoppen en reactiebanden. Voet in de donkere tekstkleur.
@@ -661,3 +661,9 @@ main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:calc(
 }
 .offers li.gift-group .offer-text{ flex:none; }
 @media (max-width:640px){ .gift-acts .offer-price{ align-self:end; } .gift-acts .gift-go{ align-self:start; } }
+
+/* v8.7.15 — foto « Marcher sans voir » sluit bovenaan aan: op desktop loopt ze onder de schuine reactieband door */
+@media (min-width:860px){
+  main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:0; }
+  main > .quote-band:not(.quote-band--both) + .me .me-text{ padding-top:calc(4rem + 2.5rem + clamp(2rem, 5vw, 3rem)); }
+}

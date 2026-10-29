@@ -1,5 +1,5 @@
 /* ===========================================================
-   Erika Wild — design tokens (v8.7.17 — goudstro, foto's uit originelen; was v8.7.5 kaki)
+   Erika Wild — design tokens (v8.7.18 — goudstro, grond crème #F4ECDC, fotofilter goudstro-crème; was v8.7.5 kaki)
    Wild, theatraal, eenvoudig. Licht als basis: kaki als papier
    of droog gras. Donker olijf enkel voor de blinddoek, labels,
    knoppen en reactiebanden. Voet in de donkere tekstkleur.
@@ -13,22 +13,22 @@
    =========================================================== */
 
 :root{
-  /* v8.7.13 — goudstro (O4b). Token-namen behouden: --black = het grondvlak (gebroken wit), --light = de stro-vakken */
-  --black:  #F2EFE9;            /* gebroken wit, grondvlak (= Facebook-omslag) */
-  --ink:    #382818;            /* tabak: tekst — 12,3:1 op grond, 10:1 op stro */
-  --ink-soft: #6A5636;          /* secundaire tekst — 6,1:1 op grond */
+  /* v8.7.18 — goudstro, grond crème (was gebroken wit #F2EFE9). Token-namen behouden: --black = het grondvlak (crème), --light = de stro-vakken */
+  --black:  #F4ECDC;            /* crème, grondvlak = lichtste toon fotofilter */
+  --ink:    #382818;            /* tabak: tekst — 12,0:1 op grond, 10:1 op stro */
+  --ink-soft: #6A5636;          /* secundaire tekst — 6,0:1 op grond */
   --light:  #EBD7A8;            /* goudstro: lichte vakken */
   --on-light: #382818;
   --acc:    #7F4D16;            /* donker oker: knoppen, blinddoek, labels — 6:1 met lichte tekst */
-  --on-acc: #F2EFE9;
+  --on-acc: #F4ECDC;            /* 6,0:1 op oker */
   --band:   #D6AA55;            /* reactiebanden, veiligheidsblok — tabak erop 6,6:1 */
   --on-band:#382818;
   --foot:   #C99A4A;            /* voet — tabak erop 5,5:1 */
   --on-foot:#382818;
-  --header: rgba(242,239,233,.95);
+  --header: rgba(244,236,220,.95);
   --line:   rgba(56,40,24,.2);
   --line-light: rgba(56,40,24,.2);
-  --glow:   rgba(255,255,255,.35); /* toneellicht */
+  --glow:   rgba(250,245,234,.55); /* toneellicht, warm (geen koud wit op crème) */
 
   --display: Didot, "Bodoni 72", "Bodoni MT", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -442,6 +442,7 @@ video:focus-within{ outline:3px solid var(--ink); outline-offset:3px; }
 }
 
 /* groepsfoto boven 'Boek je sessie': boven schuin aflopend naar rechts, onder recht */
+.band-photo--light{ z-index:1; }  /* v8.7.18: band ligt over de foto erboven, schuine snede zichtbaar, geen haarlijn */
 .band-photo--light img{ clip-path:polygon(0 0, 100% 2.5rem, 100% 100%, 0 100%); }
 
 /* losse reactie bij het onderdeel waar ze twijfel wegneemt */

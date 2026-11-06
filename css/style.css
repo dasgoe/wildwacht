@@ -668,3 +668,12 @@ main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:calc(
   main > .quote-band:not(.quote-band--both) + .me.section-light{ padding-top:0; }
   main > .quote-band:not(.quote-band--both) + .me .me-text{ padding-top:calc(4rem + 2.5rem + clamp(2rem, 5vw, 3rem)); }
 }
+
+/* v8.7.19 — boekblok: alle knoppen even breed, zelfde rechterlijn; kader "meest gekozen" weg */
+#formules .offers .btn{ min-width:11rem; justify-content:center; text-align:center; }
+#formules .offers .acts li{ padding:.35rem 0 .45rem; }
+/* v8.7.19 — foto bij "Hoe het gaat": blinddoek opgetild */
+.tilt-left{ transform:rotate(-2.5deg); }
+@media (min-width:860px){ .split--photo-left{ grid-template-columns:17rem 1fr; } }
+@media (max-width:859px){ .split--photo-left .tilt-photo{ margin:0 auto 1rem; width:min(64%,17rem); } }
+@media (prefers-reduced-motion: reduce){ .tilt-left{ transform:none; } }
